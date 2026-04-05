@@ -191,7 +191,7 @@ function runModel() {
         gb: parseFloat(document.getElementById("gb").value) // 🔥 NEW
     };
 
-    fetch("http://127.0.0.1:5000/predict", {
+    fetch("https://your-backend.onrender.com/predict", {
         method: "POST",
         headers: {
             "Content-Type": "application/json"
