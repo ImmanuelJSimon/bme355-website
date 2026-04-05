@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Abstract - Glucose Simulator</title>
+
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Inter', sans-serif;
+            background-color: #f5f7fa;
+        }
+
+        /* NAVBAR */
+        .navbar {
+            background-color: #1f2933;
+            padding: 12px 20px;
+        }
+
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        .dropbtn {
+            background-color: #1f2933;
+            color: white;
+            font-size: 16px;
+            border: none;
+            cursor: pointer;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: white;
+            min-width: 220px;
+            box-shadow: 0px 8px 16px rgba(0,0,0,0.2);
+            border-radius: 6px;
+            overflow: hidden;
+        }
+
+        .dropdown-content a {
+            color: #333;
+            padding: 12px 16px;
+            display: block;
+            text-decoration: none;
+        }
+
+        .dropdown-content a:hover {
+            background-color: #f0f0f0;
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        /* CONTENT */
+        .container {
+            max-width: 800px;
+            margin: 60px auto;
+            background: white;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0px 10px 25px rgba(0,0,0,0.08);
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 25px;
+            font-weight: 600;
+            color: #1f2933;
+        }
+
+        p {
+            font-size: 16px;
+            line-height: 1.7;
+            color: #444;
+            margin-bottom: 20px;
+        }
+        .header-banner {
+            text-align: center;
+            padding: 20px 10px 10px 10px;
+        }
+
+        .header-banner h1 {
+            margin: 0;
+            font-size: 22px;
+            font-weight: 600;
+            color: #1f2933;
+        }
+
+        .header-banner p {
+            margin-top: 5px;
+            font-size: 14px;
+            color: #6b7280;
+        }        
+    </style>
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+<div class="navbar">
+    <div class="dropdown">
+        <button class="dropbtn">Menu ▼</button>
+        <div class="dropdown-content">
+            <a href="index.html">Glucose Simulator</a>
+            <a href="abstract.html">Abstract</a>
+            <a href="introduction.html">Introduction</a>
+            <a href="methods.html">Methods</a>
+            <a href="results.html">Results</a>
+            <a href="discussion.html">Discussion</a>
+        </div>
+    </div>
+</div>
+
+<div class="header-banner">
+    <h1>BME 355 Final Project - Group 11</h1>
+    <p>Website Developed by Immanuel Simon</p>
+</div>
+
+<!-- CONTENT -->
+<div class="container">
+    <h1>Abstract</h1>
+
+    <p>
+        Abnormal regulation of blood glucose following a meal is an early indicator of metabolic dysfunction, yet commonly used clinical measures often capture only isolated snapshots of a continuously evolving process. To address this limitation, a simplified three-state model was developed to simulate glucose dynamics over time using physiologically meaningful variables: blood glucose, insulin concentration, and insulin action. Rather than explicitly modelling digestion and hormonal pathways, the model represents food intake as a glucose input, allowing it to capture the transition from pre-meal baseline to post-meal recovery in a computationally efficient and interpretable manner.
+    </p>
+
+    <p>
+        Analysis of the model demonstrated behaviour consistent with expected physiological responses, including a rise in glucose following a meal, a delayed insulin response, and a gradual return toward baseline driven by insulin action. Sensitivity and parameter analyses further revealed how key parameters influence peak glucose levels and recovery time, while simulations of varying meal sizes produced realistic changes in system response. Although simplified, the model successfully reproduces core features of glucose-insulin regulation and provides a useful foundation for future validation and extension toward modelling impaired metabolic conditions.
+    </p>
+
+</div>
+
+</body>
+</html>

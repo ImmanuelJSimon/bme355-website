@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Results - Glucose Simulator</title>
+
+    <!-- Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Inter', sans-serif;
+            background-color: #f5f7fa;
+        }
+
+        /* NAVBAR */
+        .navbar {
+            background-color: #1f2933;
+            padding: 12px 20px;
+        }
+
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        .dropbtn {
+            background-color: #1f2933;
+            color: white;
+            font-size: 16px;
+            border: none;
+            cursor: pointer;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: white;
+            min-width: 220px;
+            box-shadow: 0px 8px 16px rgba(0,0,0,0.2);
+            border-radius: 6px;
+        }
+
+        .dropdown-content a {
+            padding: 12px;
+            display: block;
+            text-decoration: none;
+            color: #333;
+        }
+
+        .dropdown-content a:hover {
+            background-color: #f0f0f0;
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        /* CONTENT */
+        .container {
+            max-width: 900px;
+            margin: 60px auto;
+            background: white;
+            padding: 45px;
+            border-radius: 12px;
+            box-shadow: 0px 10px 25px rgba(0,0,0,0.08);
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        h2 {
+            margin-top: 30px;
+        }
+
+        p {
+            line-height: 1.7;
+            color: #444;
+        }
+
+        /* FIGURES */
+        .figure {
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        .figure img {
+            max-width: 100%;
+            border-radius: 8px;
+        }
+
+        /* ACCORDION */
+        .accordion {
+            background-color: #e5e7eb;
+            cursor: pointer;
+            padding: 14px;
+            width: 100%;
+            border: none;
+            text-align: left;
+            font-size: 16px;
+            margin-top: 10px;
+            border-radius: 6px;
+        }
+
+        .accordion:hover {
+            background-color: #d1d5db;
+        }
+
+        .panel {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+            background-color: #fafafa;
+            padding: 0 15px;
+            border-radius: 6px;
+        }
+
+        .panel-content {
+            padding: 15px 0;
+        }
+        .header-banner {
+            text-align: center;
+            padding: 20px 10px 10px 10px;
+        }
+
+        .header-banner h1 {
+            margin: 0;
+            font-size: 22px;
+            font-weight: 600;
+            color: #1f2933;
+        }
+
+        .header-banner p {
+            margin-top: 5px;
+            font-size: 14px;
+            color: #6b7280;
+        }        
+    </style>
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+<div class="navbar">
+    <div class="dropdown">
+        <button class="dropbtn">Menu ▼</button>
+        <div class="dropdown-content">
+            <a href="index.html">Glucose Simulator</a>
+            <a href="abstract.html">Abstract</a>
+            <a href="introduction.html">Introduction</a>
+            <a href="methods.html">Methods</a>
+            <a href="results.html">Results</a>
+            <a href="discussion.html">Discussion</a>
+        </div>
+    </div>
+</div>
+
+<div class="header-banner">
+    <h1>BME 355 Final Project - Group 11</h1>
+    <p>Website Developed by Immanuel Simon</p>
+</div>
+
+<div class="container">
+
+<h1>Results</h1>
+
+<!-- ALWAYS VISIBLE SECTION -->
+<h2>Model Behaviour and State Trajectories</h2>
+
+<p>
+Simulations of the glucose–insulin system demonstrated physiologically realistic responses following meal intake. Blood glucose levels increased rapidly after carbohydrate consumption, reached a peak, and gradually returned toward baseline. Insulin exhibited a delayed but coordinated response, rising in response to elevated glucose before decaying back to basal levels.
+</p>
+
+<p>
+Under fasting conditions (no meal input), the system remained at steady state, with glucose and insulin maintained at baseline values. This confirms that the model does not exhibit drift or instability in the absence of external input. Increasing carbohydrate intake resulted in higher glucose peaks and stronger insulin responses, demonstrating that the model captures the expected relationship between meal size and postprandial dynamics.
+</p>
+
+<div class="figure">
+    <img src="images/model_response_0.png">
+    <p>Figure 1: Simulated glucose and insulin trajectories after no meal intake.</p>
+</div>
+
+<div class="figure">
+    <img src="images/model_response_45.png">
+    <p>Figure 2: Simulated glucose and insulin trajectories after meal intake of 45 grams of carbs.</p>
+</div>
+
+<div class="figure">
+    <img src="images/model_response_60.png">
+    <p>Figure 3: Simulated glucose and insulin trajectories after meal intake of 60 grams of carbs.</p>
+</div>
+
+<!-- ACCORDION SECTIONS -->
+
+<button class="accordion">Validation Against Literature</button>
+<div class="panel">
+<div class="panel-content">
+<p>
+Model outputs were compared with published glucose and insulin response curves. The simulated trajectories showed strong agreement with literature, including comparable peak magnitudes, realistic timing of peak responses, and appropriate return to baseline.
+</p>
+<p>
+These results indicate that the model reproduces key physiological characteristics of glucose regulation and aligns well with experimentally observed behavior.
+</p>
+</div>
+</div>
+
+<button class="accordion">Curve Fitting Performance</button>
+<div class="panel">
+<div class="panel-content">
+<p>
+Parameter estimation produced simulated trajectories that closely matched extracted experimental data. The optimization converged after approximately 2000 iterations, achieving a low final loss value and balanced fitting across both glucose and insulin signals.
+</p>
+<p>
+The fitted model accurately captured both the amplitude and temporal dynamics of physiological responses.
+</p>
+
+<div class="figure">
+    <img src="images/curve_fit.png">
+    <p>Figure 4: Model fit compared to extracted experimental data.</p>
+</div>
+</div>
+</div>
+
+<button class="accordion">Effect of Impaired Insulin Secretion</button>
+<div class="panel">
+<div class="panel-content">
+<p>
+Reducing the parameter representing pancreatic insulin response resulted in higher glucose peaks, slower recovery, and reduced insulin levels. These changes reflect impaired insulin secretion and demonstrate how disruptions to feedback regulation lead to prolonged hyperglycemia.
+</p>
+
+<div class="figure">
+    <img src="images/impaired_insulin.png">
+    <p>Figure 5: Effect of reduced insulin response on glucose dynamics.</p>
+</div>
+<div class="figure">
+    <img src="images/model_response_45.png">
+    <p>Figure 6: Glucose and insulin trajectories after meal intake of 45 grams of carbs.</p>
+</div>
+</div>
+</div>
+
+<button class="accordion">Sensitivity and Parameter Analysis</button>
+<div class="panel">
+<div class="panel-content">
+<p>
+Sensitivity analysis showed that glucose effectiveness had the greatest influence on system behavior, significantly affecting peak glucose levels and recovery rate. Other parameters, including those governing insulin dynamics, had smaller but consistent effects.
+</p>
+<div class="figure">
+    <img src="images/parameter_sensitivity.png">
+    <p>Figure 7: Normalized sensitivity magnitude of each parameter.</p>
+</div>
+<p>
+Parameter variation studies demonstrated that changes in parameter values produced proportional and physiologically consistent responses, confirming the robustness of the model.
+</p>
+</div>
+</div>
+
+<button class="accordion">Stability Analysis</button>
+<div class="panel">
+<div class="panel-content">
+<p>
+Linearization of the system around the equilibrium point revealed eigenvalues with negative real parts, indicating asymptotic stability. Perturbation simulations further confirmed that the system returns to equilibrium following small disturbances.
+</p>
+
+<div class="figure">
+    <img src="images/perturbation.png">
+    <p>Figure 8: System response to perturbations from equilibrium.</p>
+</div>
+</div>
+</div>
+
+<button class="accordion">Oscillation and Phase Analysis</button>
+<div class="panel">
+<div class="panel-content">
+<p>
+Eigenvalue analysis revealed complex conjugate pairs, indicating damped oscillatory behavior. The system exhibited a natural frequency and long oscillation period, with oscillations decaying over time.
+</p>
+
+<p>
+Phase portraits further confirmed this behavior, showing trajectories spiraling toward equilibrium, consistent with a stable system exhibiting damped oscillations.
+</p>
+
+<div class="figure">
+    <img src="images/oscillation.png">
+    <p>Figure 9: Oscillatory dynamics of the system.</p>
+</div>
+
+<div class="figure">
+    <img src="images/phase_portrait.png">
+    <p>Figure 10: Phase portrait showing convergence to equilibrium.</p>
+</div>
+
+</div>
+</div>
+
+</div>
+
+<!-- ACCORDION SCRIPT -->
+<script>
+const acc = document.getElementsByClassName("accordion");
+
+for (let i = 0; i < acc.length; i++) {
+    acc[i].addEventListener("click", function () {
+        const panel = this.nextElementSibling;
+
+        if (panel.style.maxHeight) {
+            panel.style.maxHeight = null;
+        } else {
+            panel.style.maxHeight = panel.scrollHeight + "px";
+        }
+    });
+}
+</script>
+
+</body>
+</html>

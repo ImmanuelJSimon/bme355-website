@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Discussion - Glucose Simulator</title>
+
+    <!-- Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Inter', sans-serif;
+            background-color: #f5f7fa;
+        }
+
+        /* NAVBAR */
+        .navbar {
+            background-color: #1f2933;
+            padding: 12px 20px;
+        }
+
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        .dropbtn {
+            background-color: #1f2933;
+            color: white;
+            font-size: 16px;
+            border: none;
+            cursor: pointer;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: white;
+            min-width: 220px;
+            box-shadow: 0px 8px 16px rgba(0,0,0,0.2);
+            border-radius: 6px;
+        }
+
+        .dropdown-content a {
+            padding: 12px;
+            display: block;
+            text-decoration: none;
+            color: #333;
+        }
+
+        .dropdown-content a:hover {
+            background-color: #f0f0f0;
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        /* CONTENT */
+        .container {
+            max-width: 900px;
+            margin: 60px auto;
+            background: white;
+            padding: 45px;
+            border-radius: 12px;
+            box-shadow: 0px 10px 25px rgba(0,0,0,0.08);
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        h2 {
+            margin-top: 35px;
+            color: #1f2933;
+        }
+
+        p {
+            line-height: 1.7;
+            color: #444;
+            margin-bottom: 18px;
+        }
+        .header-banner {
+            text-align: center;
+            padding: 20px 10px 10px 10px;
+        }
+
+        .header-banner h1 {
+            margin: 0;
+            font-size: 22px;
+            font-weight: 600;
+            color: #1f2933;
+        }
+
+        .header-banner p {
+            margin-top: 5px;
+            font-size: 14px;
+            color: #6b7280;
+        }
+    </style>
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+<div class="navbar">
+    <div class="dropdown">
+        <button class="dropbtn">Menu ▼</button>
+        <div class="dropdown-content">
+            <a href="index.html">Glucose Simulator</a>
+            <a href="abstract.html">Abstract</a>
+            <a href="introduction.html">Introduction</a>
+            <a href="methods.html">Methods</a>
+            <a href="results.html">Results</a>
+            <a href="discussion.html">Discussion</a>
+        </div>
+    </div>
+</div>
+
+<div class="header-banner">
+    <h1>BME 355 Final Project - Group 11</h1>
+    <p>Website Developed by Immanuel Simon</p>
+</div>
+
+<div class="container">
+
+<h1>Discussion</h1>
+
+<h2>Summary of Outcomes</h2>
+<p>
+The objective of this project was to develop a state-space model capable of predicting blood glucose dynamics based on insulin-related processes and to evaluate its stability, sensitivity, and physiological realism. Within the scope of a simplified framework, this objective was successfully achieved.
+</p>
+
+<p>
+The model reproduced key features of postprandial glucose regulation, including a rise in glucose following a meal, a delayed insulin response, and a gradual return to baseline. This behavior reflects the expected negative feedback structure of glucose homeostasis. A notable strength of the model is the separation of insulin concentration and insulin action, which captures the physiological delay between insulin release and its metabolic effect, resulting in more realistic system dynamics.
+</p>
+
+<h2>Stability and Oscillatory Behavior</h2>
+<p>
+Stability analysis demonstrated that the system is asymptotically stable around its basal equilibrium point. Both eigenvalue analysis and simulation confirmed that small perturbations decay over time. The presence of complex eigenvalues indicates that this return to equilibrium occurs through a damped oscillatory response rather than a purely monotonic decay.
+</p>
+
+<p>
+This behavior is consistent with physiological regulation, where feedback mechanisms may produce slight overshoot before stabilization. However, this conclusion is based on local linearization, and therefore applies primarily to behavior near the equilibrium point rather than under large disturbances.
+</p>
+
+<h2>Effect of Meal Size on Glucose Regulation</h2>
+<p>
+The model demonstrated a clear relationship between carbohydrate intake and glucose response. Larger meal sizes resulted in higher peak glucose levels and longer recovery times while maintaining a similar overall response shape. This indicates that the model appropriately captures the influence of external inputs on glucose dynamics.
+</p>
+
+<p>
+Although the magnitude of change between different meal sizes was moderate, the trend remained consistent and physiologically reasonable, supporting the model’s validity in representing postprandial behavior.
+</p>
+
+<h2>Sensitivity to Physiological Parameters</h2>
+<p>
+Sensitivity analysis identified glucose effectiveness as the most influential parameter governing system behavior, followed by parameters related to insulin action and secretion. In contrast, insulin decay had a smaller overall effect.
+</p>
+
+<p>
+These findings suggest that glucose regulation is strongly influenced by the body's ability to clear glucose and the responsiveness of insulin-mediated processes. Additionally, the analysis highlights the importance of considering both peak glucose levels and recovery time, as some parameters may have a greater impact on prolonged glucose elevation than on peak magnitude alone.
+</p>
+
+<h2>Physiological Interpretation and Model Structure</h2>
+<p>
+The structure of the model reflects a simplified but interpretable representation of glucose-insulin regulation. Glucose is reduced through both intrinsic effectiveness and insulin-mediated pathways, while elevated glucose stimulates insulin secretion, creating a closed-loop feedback system. The meal input acts as an external disturbance, and the resulting insulin response emerges naturally from the system dynamics.
+</p>
+
+<p>
+While this structure captures the dominant regulatory mechanism, it remains a simplified representation and does not include more complex physiological interactions such as multi-organ effects or nonlinear hormonal regulation.
+</p>
+
+<h2>Limitations</h2>
+<p>
+Several limitations arise from the simplified nature of the model. The system assumes a single-compartment representation and does not explicitly model tissue-specific processes or interactions between organs. Insulin secretion is modeled as a direct function of glucose, whereas in reality it is influenced by additional physiological factors.
+</p>
+
+<p>
+Important regulatory mechanisms, including incretin effects, glucagon response, and variability in digestion, are not included. As a result, the model captures short-term glucose-insulin dynamics but does not fully represent the complexity of real physiological systems or long-term metabolic conditions.
+</p>
+
+<h2>Recommendations for Future Work</h2>
+<p>
+Future work should focus on improving both physiological realism and quantitative validation. Comparing model predictions against additional experimental datasets using quantitative performance metrics would provide a more rigorous assessment of model accuracy.
+</p>
+
+<p>
+Extensions to the model could include incorporating additional hormonal regulation, multi-compartment dynamics, or more detailed representations of glucose absorption. Developing a robust framework for simulating diabetic conditions, including external insulin inputs, would also be a valuable direction for further study.
+</p>
+
+<p>
+Finally, benchmarking the model against established glucose-insulin models would provide useful context for evaluating both predictive performance and interpretability.
+</p>
+
+</div>
+
+</body>
+</html>

@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Glucose Simulator</title>
+
+    <!-- Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Inter', sans-serif;
+            background-color: #f5f7fa;
+        }
+
+        /* NAVBAR */
+        .navbar {
+            background-color: #1f2933;
+            padding: 12px 20px;
+        }
+
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        .dropbtn {
+            background-color: #1f2933;
+            color: white;
+            font-size: 16px;
+            border: none;
+            cursor: pointer;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: white;
+            min-width: 220px;
+            border-radius: 6px;
+            box-shadow: 0px 8px 16px rgba(0,0,0,0.2);
+        }
+
+        .dropdown-content a {
+            padding: 12px;
+            display: block;
+            text-decoration: none;
+            color: #333;
+        }
+
+        .dropdown-content a:hover {
+            background-color: #f0f0f0;
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        /* MAIN CONTAINER */
+        .container {
+            max-width: 900px;
+            margin: 60px auto;
+            background: white;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0px 10px 25px rgba(0,0,0,0.08);
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        .inputs {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        select, input {
+            padding: 10px;
+            border-radius: 6px;
+            border: 1px solid #ccc;
+            font-size: 14px;
+        }
+
+        button {
+            margin-top: 20px;
+            width: 100%;
+            padding: 12px;
+            border: none;
+            border-radius: 6px;
+            background-color: #2563eb;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #1d4ed8;
+        }
+
+        #results {
+            margin-top: 20px;
+            font-size: 15px;
+            line-height: 1.6;
+        }
+
+        canvas {
+            margin-top: 30px;
+        }
+        .header-banner {
+            text-align: center;
+            padding: 20px 10px 10px 10px;
+        }
+
+        .header-banner h1 {
+            margin: 0;
+            font-size: 22px;
+            font-weight: 600;
+            color: #1f2933;
+        }
+
+        .header-banner p {
+            margin-top: 5px;
+            font-size: 14px;
+            color: #6b7280;
+        }
+    </style>
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+<div class="navbar">
+    <div class="dropdown">
+        <button class="dropbtn">Menu ▼</button>
+        <div class="dropdown-content">
+            <a href="index.html">Glucose Simulator</a>
+            <a href="abstract.html">Abstract</a>
+            <a href="introduction.html">Introduction</a>
+            <a href="methods.html">Methods</a>
+            <a href="results.html">Results</a>
+            <a href="discussion.html">Discussion</a>
+        </div>
+    </div>
+</div>
+
+<div class="header-banner">
+    <h1>BME 355 Final Project - Group 11</h1>
+    <p>Website Developed by Immanuel Simon</p>
+</div>
+
+<div class="container">
+
+<h1>Glucose and Insulin Simulator</h1>
+
+<div class="inputs">
+    <select id="type">
+        <option value="normal">Non-Diabetic</option>
+        <option value="t1d">Type 1 Diabetic w/ 100 U Bolus Injection</option>
+    </select>
+
+    <input type="number" id="carbs" placeholder="Carbs (g)">
+
+    <input type="number" id="time" placeholder="Time after eating to check (min)">
+
+    <!-- 🔥 NEW INPUT -->
+    <input type="number" id="gb" placeholder="Basal Glucose (mg/dL)">
+</div>
+
+<button onclick="runModel()">Simulate</button>
+
+<p id="results"></p>
+
+<canvas id="chart"></canvas>
+
+</div>
+
+<script>
+let chart = null;
+
+function runModel() {
+
+    const data = {
+        carbs: parseFloat(document.getElementById("carbs").value),
+        type: document.getElementById("type").value,
+        time: parseFloat(document.getElementById("time").value),
+        gb: parseFloat(document.getElementById("gb").value) // 🔥 NEW
+    };
+
+    fetch("http://127.0.0.1:5000/predict", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(data)
+    })
+    .then(res => res.json())
+    .then(result => {
+
+        document.getElementById("results").innerText =
+            `Peak Glucose: ${result.peak_glucose.toFixed(2)} at ${result.peak_glucose_time.toFixed(1)} min
+Peak Insulin: ${result.peak_insulin.toFixed(2)} at ${result.peak_insulin_time.toFixed(1)} min
+Glucose at chosen time: ${result.glucose_at_time.toFixed(2)}`;
+
+        if (chart) chart.destroy();
+
+        chart = new Chart(document.getElementById("chart"), {
+            type: "line",
+            data: {
+                labels: result.time,
+                datasets: [
+                    { label: "Glucose", data: result.glucose },
+                    { label: "Insulin", data: result.insulin }
+                ]
+            },
+            options: {
+                scales: {
+                    x: {
+                        ticks: { maxTicksLimit: 8 }
+                    }
+                }
+            }
+        });
+
+    })
+    .catch(err => console.error(err));
+}
+</script>
+
+</body>
+</html>

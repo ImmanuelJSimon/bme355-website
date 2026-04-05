@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Methods - Glucose Simulator</title>
+
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Inter', sans-serif;
+            background-color: #f5f7fa;
+        }
+
+        /* NAVBAR */
+        .navbar {
+            background-color: #1f2933;
+            padding: 12px 20px;
+        }
+
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        .dropbtn {
+            background-color: #1f2933;
+            color: white;
+            font-size: 16px;
+            border: none;
+            cursor: pointer;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: white;
+            min-width: 220px;
+            box-shadow: 0px 8px 16px rgba(0,0,0,0.2);
+            border-radius: 6px;
+            overflow: hidden;
+        }
+
+        .dropdown-content a {
+            color: #333;
+            padding: 12px 16px;
+            display: block;
+            text-decoration: none;
+        }
+
+        .dropdown-content a:hover {
+            background-color: #f0f0f0;
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        /* CONTENT */
+        .container {
+            max-width: 900px;
+            margin: 60px auto;
+            background: white;
+            padding: 45px;
+            border-radius: 12px;
+            box-shadow: 0px 10px 25px rgba(0,0,0,0.08);
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 30px;
+            font-weight: 600;
+            color: #1f2933;
+        }
+
+        h2 {
+            margin-top: 35px;
+            font-weight: 600;
+            color: #1f2933;
+        }
+
+        p {
+            font-size: 16px;
+            line-height: 1.7;
+            color: #444;
+            margin-bottom: 18px;
+        }
+
+        .figure {
+            text-align: center;
+            margin: 25px 0;
+        }
+
+        .figure img {
+            max-width: 100%;
+            border-radius: 8px;
+        }
+
+        .figure p {
+            font-size: 14px;
+            color: #666;
+            margin-top: 8px;
+        }
+        .header-banner {
+            text-align: center;
+            padding: 20px 10px 10px 10px;
+        }
+
+        .header-banner h1 {
+            margin: 0;
+            font-size: 22px;
+            font-weight: 600;
+            color: #1f2933;
+        }
+
+        .header-banner p {
+            margin-top: 5px;
+            font-size: 14px;
+            color: #6b7280;
+        }        
+    </style>
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+<div class="navbar">
+    <div class="dropdown">
+        <button class="dropbtn">Menu ▼</button>
+        <div class="dropdown-content">
+            <a href="index.html">Glucose Simulator</a>
+            <a href="abstract.html">Abstract</a>
+            <a href="introduction.html">Introduction</a>
+            <a href="methods.html">Methods</a>
+            <a href="results.html">Results</a>
+            <a href="discussion.html">Discussion</a>
+        </div>
+    </div>
+</div>
+
+<div class="header-banner">
+    <h1>BME 355 Final Project - Group 11</h1>
+    <p>Website Developed by Immanuel Simon</p>
+</div>
+
+<!-- CONTENT -->
+<div class="container">
+
+    <h1>Methods</h1>
+
+    <h2>Model Overview</h2>
+    <p>
+        A compartmental physiological model was developed to describe the dynamic interaction between blood glucose, plasma insulin, and insulin action following a meal. The model is based on the structure of the Bergman Minimal Model, with modifications to incorporate an external carbohydrate input. Three state variables were defined: blood glucose concentration, plasma insulin concentration, and insulin action, where insulin action represents the delayed physiological effect of insulin on glucose uptake.
+    </p>
+
+    <p>
+        These states capture the dominant processes governing short-term glucose regulation and are physiologically measurable, allowing for potential experimental validation. The system is driven by an external input representing glucose appearance in the bloodstream following a meal.
+    </p>
+
+    <h2>Model Equations</h2>
+    <p>
+        The system is described by a set of coupled nonlinear differential equations, shown below. These equations define how glucose, insulin, and insulin action evolve over time through interacting physiological processes.
+    </p>
+
+    <div class="figure">
+        <img src="images/model_equations.png" alt="Model Equations">
+        <p>Figure 1: Governing equations of the glucose-insulin system.</p>
+    </div>
+
+    <p>
+        In this formulation, basal glucose and insulin levels define the system equilibrium, while parameters represent physiological processes such as glucose effectiveness, insulin decay, and pancreatic response. Positive terms correspond to production or input, while negative terms represent clearance and regulatory feedback, ensuring consistent system behavior.
+    </p>
+
+    <p>
+        The glucose equation includes both passive regulation toward baseline and insulin-mediated uptake, while the insulin equation captures secretion in response to elevated glucose and natural decay. The insulin action state introduces a delay, representing the time required for insulin to exert its physiological effects.
+    </p>
+
+    <div class="figure">
+        <img src="images/parameter_table.png" alt="Parameter Table">
+        <p>Table 1: Model parameters and their physiological interpretations.</p>
+    </div>
+
+    <h2>Meal Input Representation</h2>
+    <p>
+        Meal intake was modeled as a delayed exponential function, where carbohydrate intake determines the magnitude of glucose input and a rate parameter controls absorption speed. This approach allows the model to simulate realistic post-meal glucose dynamics without explicitly modeling digestion or gastrointestinal processes.
+    </p>
+
+    <div class="figure">
+        <img src="images/meal_function.png" alt="Meal Input Function">
+        <p>Figure 2: Functional representation of glucose input following a meal.</p>
+    </div>
+
+    <p>
+        This formulation extends the original model by incorporating dietary input as a forcing function, enabling simulation of both fasting and postprandial states.
+    </p>
+
+    <h2>Parameter Estimation</h2>
+    <p>
+        Model parameters were estimated using experimental glucose and insulin response data extracted from published literature. Data were digitized, smoothed, and interpolated onto a common time grid. Optimization was performed using a gradient-based approach, where parameters were iteratively adjusted to minimize the error between simulated and experimental trajectories.
+    </p>
+
+    <p>
+        To ensure numerical stability and physically meaningful values, parameter transformations and normalization techniques were applied during training. This approach enabled the model to approximate physiological responses observed in experimental data.
+    </p>
+
+    <h2>Simulation Methods</h2>
+    <p>
+        Numerical simulations were performed using Python and integrated using a standard differential equation solver. Initial conditions were set to basal values, and simulations were run over a 300-minute time horizon. Multiple scenarios were evaluated, including fasting conditions and varying levels of carbohydrate intake, to assess system behavior under different physiological inputs.
+    </p>
+
+    <h2>Model Validation</h2>
+    <p>
+        Model outputs were compared with published glucose and insulin response curves to assess validity. Key evaluation metrics included peak values, time-to-peak responses, and overall curve shape. Baseline simulations without meal input were also used to confirm that the system remained at equilibrium in the absence of perturbations.
+    </p>
+
+    <h2>System Analysis</h2>
+    <p>
+        The system was analyzed using both analytical and computational techniques. Linearization around the equilibrium point enabled stability analysis through eigenvalue evaluation. Sensitivity analysis was conducted by varying individual parameters and observing their effect on glucose dynamics, while additional simulations were used to assess the system’s response to perturbations and identify potential oscillatory behavior.
+    </p>
+
+    <h2>Assumptions and Limitations</h2>
+    <p>
+        Several simplifying assumptions were made in this model. The body was treated as a single compartment system, and insulin action was represented as a lumped variable rather than explicitly modeling receptor-level dynamics. Meal absorption was simplified, and external influences such as physical activity and hormonal regulation were not included. These assumptions improve tractability but may limit the model’s ability to capture more complex physiological behavior.
+    </p>
+
+</div>
+
+</body>
+</html>
